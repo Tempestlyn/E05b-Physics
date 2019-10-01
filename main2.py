@@ -12,11 +12,11 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 MARGIN = 10
 NUM_BALLS = 20
-INITIAL_VELOCITY = 3
+INITIAL_VELOCITY = 5
 FRICTION = 0.9
 SCREEN_TITLE = "Gravity and Bouncing Exercise"
 
-GRAVITY = 0 #update this value
+GRAVITY = -10 #update this value
 
 
 class Ball():
@@ -36,24 +36,28 @@ class Ball():
         self.y += self.dy
         if self.x <= MARGIN:
             self.x = MARGIN
+            self.dx = self.dx * -1
             #bounce dx
 
             self.dx *= FRICTION
             self.dy *= FRICTION
         if self.x >= SCREEN_WIDTH - MARGIN:
             self.x = SCREEN_WIDTH - MARGIN
+            self.dx = self.dx * -1
             #bounce dx
 
             self.dx *= FRICTION
             self.dy *= FRICTION
         if self.y <= MARGIN:
             self.y = MARGIN
+            self.dy = self.dy * -1
             #bounce dy
 
             self.dx *= FRICTION
             self.dy *= FRICTION
         if self.y >= SCREEN_HEIGHT - MARGIN:
             self.y = SCREEN_HEIGHT - MARGIN
+            self.dy = self.dy * -1
             #bounce dy
 
             self.dx *= FRICTION
@@ -84,7 +88,7 @@ class Window(arcade.Window):
 
     def update(self, delta_time):
         for b in self.ball_list:
-            # apply gravity here
+            b.accelerate(0, -5)
             b.update()
 
     def on_draw(self):
